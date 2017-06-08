@@ -41,3 +41,13 @@ std::string Team::MatchHistory()
 	return output;
 }
 
+void Team::AddVictory(std::string history)
+{
+	_history.push_back("VICTORY");
+}
+
+void Team::AddDefeat(std::string history)
+{
+	_history.push_back("DEFEAT");
+}
+

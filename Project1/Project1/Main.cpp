@@ -1,7 +1,7 @@
 /* 
 	Author: Ryan Sorice
 	CIS 17A - Final Project
-	Lane Game
+	Baseball-like Game
 */
 
 //System libraries
@@ -65,11 +65,11 @@ int main()
 	}
 
 	//Run the game
-	int gameOver = 0;
+	int gameOver = 0, level = 1;
 	while (gameOver != 1 && gameOver != 2)
 	{
 		cout << "1) View Team\n2) Play Game\n3) Match History\n4) Quit Game\n";
-		int n = -1, level=1;
+		int n = -1;
 		cin >> n;
 		switch (n)
 		{
@@ -86,7 +86,7 @@ int main()
 		case 2:
 		{
 			PlayBall(team,level);
-			if (level > 5) gameOver = 2;
+			if (level > 2) gameOver = 2;
 			system("cls");
 			break;
 		}
@@ -109,6 +109,7 @@ int main()
 	}
 	//Victory screen
 	if (gameOver == 2) cout << "Congratulations! Your team" << team->getName() << " are the champions!\n";
+	system("pause");
 	
 	return 0;
 }
@@ -228,7 +229,7 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 			}
 			case 2:
 			{
-				cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
+				cout << "Score: "<< team->getName() << " " << to_string(score) << " - Enemy " << to_string(score1) << endl;
 				system("pause"); system("cls");
 				break;
 			}
@@ -248,12 +249,14 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 				{
 					cout << "YOU WIN! LvL UP!!!\n";
 					level++;
-					team->_history.push_back("VICTORY");
+					team->AddVictory("VICTORY");
+					system("pause"); system("cls");
 				}
 				else 
 				{
 					cout << "YOU LOST! Try AGAIN!\n";
-					team->_history.push_back("DEFEAT");
+					team->AddDefeat("DEFEAT");
+					system("pause"); system("cls");
 				}
 			}
 		}

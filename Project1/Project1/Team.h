@@ -9,10 +9,9 @@ class Team
 private:
 	std::string _name;
 	std::vector<std::shared_ptr<Trainee>> players;
-
-public:
 	std::vector<std::string> _history;
 
+public:
 	Team(std::string name);
 	~Team();
 
@@ -23,5 +22,7 @@ public:
 	std::string ViewPlayers();
 	std::vector<std::shared_ptr<Trainee>> PlayerBatting();
 	std::string MatchHistory();
+	void AddVictory(std::string history);
+	void AddDefeat(std::string history);
 };
 
