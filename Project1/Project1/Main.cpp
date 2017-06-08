@@ -86,10 +86,14 @@ int main()
 		case 2:
 		{
 			PlayBall(team,level);
+			if (level > 5) gameOver = 2;
+			system("cls");
 			break;
 		}
 		case 3: 
 		{
+			cout << team->MatchHistory() << endl;
+			system("pause"); system("cls");
 			break;
 		}
 		case 4:
@@ -102,9 +106,6 @@ int main()
 		}
 		default: "Invalid entry!\n"; break;
 		}
-		//Game over with a Victory
-		if (level==6) gameOver = 2;
-		
 	}
 	//Victory screen
 	if (gameOver == 2) cout << "Congratulations! Your team" << team->getName() << " are the champions!\n";
@@ -158,10 +159,10 @@ void Batting(const shared_ptr<Team> team, int &score, int &score1)
 
 		cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
 		cout << "Outs: " << to_string(out) << endl;
-		system("pause");
+		system("pause"); system("cls");
 	}
 	cout << "Fielding team up to bat!\n";
-	system("pause");
+	system("pause"); system("cls");
 }
 
 //Individual game + submenu
@@ -247,13 +248,17 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 				{
 					cout << "YOU WIN! LvL UP!!!\n";
 					level++;
+					team->_history.push_back("VICTORY");
 				}
-				else cout << "YOU LOST! Try AGAIN!\n";
+				else 
+				{
+					cout << "YOU LOST! Try AGAIN!\n";
+					team->_history.push_back("DEFEAT");
+				}
 			}
 		}
 	}
 }
-
 //Add Batters to team function
 void AddBatters(const shared_ptr<Team> team)
 {
@@ -264,7 +269,6 @@ void AddBatters(const shared_ptr<Team> team)
 	team->AddPlayer(playerPtr);
 	system("cls");
 }
-
 //Add Fielders to team function
 void AddFielders(const shared_ptr<Team> team)
 {

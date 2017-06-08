@@ -11,6 +11,8 @@ private:
 	std::vector<std::shared_ptr<Trainee>> players;
 
 public:
+	std::vector<std::string> _history;
+
 	Team(std::string name);
 	~Team();
 
@@ -20,6 +22,6 @@ public:
 	void AddPlayer(std::shared_ptr<Trainee> _players);
 	std::string ViewPlayers();
 	std::vector<std::shared_ptr<Trainee>> PlayerBatting();
-
+	std::string MatchHistory();
 };
 

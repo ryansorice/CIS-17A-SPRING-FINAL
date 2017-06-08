@@ -29,3 +29,15 @@ std::vector<std::shared_ptr<Trainee>> Team::PlayerBatting()
 {
 	return players;
 }
+
+std::string Team::MatchHistory()
+{
+	std::string output = "Match History \n";
+	while (!_history.empty()) 
+	{
+		output += _history.back() + "\n";
+		_history.pop_back();
+	}
+	return output;
+}
+
