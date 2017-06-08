@@ -23,8 +23,8 @@ using namespace std;
 void AddBatters(const shared_ptr<Team>);
 void AddFielders(const shared_ptr<Team>);
 void PlayBall(const shared_ptr<Team>, int &);
-void Batting(const shared_ptr<Team>, int &);
-void Fielding(const shared_ptr<Team>, int &);
+void Batting(const shared_ptr<Team>, int &, int &);
+void Fielding(const shared_ptr<Team>, int &, int &);
 
 int main() 
 {
@@ -114,7 +114,7 @@ int main()
 	return 0;
 }
 
-void Batting(const shared_ptr<Team> team, int &score)
+void Batting(const shared_ptr<Team> team, int &score, int &score1)
 {
 	int out = 0;
 	while (out != 3) 
@@ -123,42 +123,47 @@ void Batting(const shared_ptr<Team> team, int &score)
 		//The at bat
 		while (strike < 3 && ball < 4)
 		{
-			int hit = rand() % 7 + 1;
+			cout << "Here's the pitch...\n";
+			int hit = rand() % 6 + 1;
 			if (hit > 5)
 			{
 				cout << "Hit and SCORE!!!\n";
 				score++;
-				system("pause");
+				system("pause"); system("cls");
 				break;
 			}
-			else if (hit > 2 && hit < 6) 
+			else if (hit > 3 && hit < 6) 
 			{
 				ball++;
-				cout << "BALL!!!\n";
-				system("pause");
+				cout << "BALL!!!\n" << "Count: " << to_string(ball) << " : " << to_string(strike) << endl;
+				system("pause"); system("cls");
 			}
 			else 
 			{
 				strike++;
-				cout << "STEE-RIKE!!!!\n";
-				system("pause");
+				cout << "STEE-RIKE!!!!\n" << "Count: " << to_string(ball) << " : " << to_string(strike) << endl;
+				system("pause"); system("cls");
 			}
 		}
 
 		if (strike == 3)
 		{
 			out++;
-			cout << "YOUR OUT!!!\n";
+			cout << "3 and you're OUT!!!\n";
 		}
 		else if (ball == 4) 
 		{
 			score++;
 			cout << "4 and SCORE!!!\n";
 		}
+
+		cout << "Score: " << to_string(score) << " : " << to_string(score1) << endl;
+		cout << "Outs: " << to_string(out) << endl;
+		system("pause");
 	}
 	
 }
-void Fielding(const shared_ptr<Team> team, int &score1)
+void Fielding(const shared_ptr<Team> team, int &score, int &score1)
 {
 
 }
@@ -197,39 +202,38 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 	}
 
 	//Game Menu
+	int score = 0, score1 = 0;
 	int x = 0;
 	while (x != 1 && x != 2)
 	{
 		system("cls");
-		cout << "1) Bat/Field\n2) The Count\n3) Score\n4) Surrender\n";
+		cout << "1) Bat/Field\n2) The Score\n3) Surrender\n";
 		int n = 0;
 		cin >> n;
 		switch (n)
 		{
 		case 1:
 		{
-			int score = 0, score1 = 0;
+			
 			if (goFirst == true)
 			{
-				Batting(team, score);
+				Batting(team, score, score1);
 				goFirst = false;
 			}
 			else 
 			{
-				Fielding(team, score1);
+				Fielding(team, score, score1);
 				goFirst = true;
 			}
 			break;
 		}
 		case 2:
 		{
+			cout << "Score: " << to_string(score) << " : " << to_string(score1) << endl;
+			system("pause"); system("cls");
 			break;
 		}
 		case 3:
-		{
-			break;
-		}
-		case 4:
 		{
 			cout << "Game Over!\n";
 			x = 1;
