@@ -18,7 +18,8 @@
 using namespace std;
 
 //Function Prototypes
-void AddPlayers(const shared_ptr<Team>);
+void AddBatters(const shared_ptr<Team>);
+void AddFielders(const shared_ptr<Team>);
 
 int main() 
 {
@@ -38,61 +39,12 @@ int main()
 	b = b + 1;
 	switch (b)
 	{
-		case 6:
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls");
-		}
-		case 5: 
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls");
-		}
-		case 4: 
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls");
-		}
-		case 3: 
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls");
-
-		}
-		case 2: 
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls");
-		}
-		case 1: 
-		{
-			cout << "Batter's name? ";
-			string name;
-			getline(cin, name);
-			auto playerPtr = make_shared<Batter>(name);
-			team->AddPlayer(playerPtr);
-			system("cls"); break;
-		}
+		case 6: AddBatters(team);
+		case 5: AddBatters(team);
+		case 4: AddBatters(team);
+		case 3: AddBatters(team);
+		case 2: AddBatters(team);
+		case 1: AddBatters(team);
 		default: break;
 	}
 
@@ -101,19 +53,29 @@ int main()
 	int f = 6 - b;
 	while ( f != 0 )
 	{
-		cout << "Fielder's name? ";
-		string name;
-		getline(cin, name);
-		auto playerPtr = make_shared<Fielder>(name);
-		team->AddPlayer(playerPtr);
-		system("cls");
+		AddFielders(team);
 		f--;
 	}
 
 	return 0;
 }
 
-void AddPlayers(const shared_ptr<Team> team)
+void AddBatters(const shared_ptr<Team> team)
 {
+	cout << "Batter's name? ";
+	string name;
+	getline(cin, name);
+	auto playerPtr = make_shared<Batter>(name);
+	team->AddPlayer(playerPtr);
+	system("cls");
+}
 
+void AddFielders(const shared_ptr<Team> team)
+{
+	cout << "Fielder's name? ";
+	string name;
+	getline(cin, name);
+	auto playerPtr = make_shared<Fielder>(name);
+	team->AddPlayer(playerPtr);
+	system("cls");
 }
