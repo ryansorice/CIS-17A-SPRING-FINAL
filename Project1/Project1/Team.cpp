@@ -24,3 +24,8 @@ std::string Team::ViewPlayers()
 	}
 	return crew;
 }
+
+std::vector<std::shared_ptr<Trainee>> Team::PlayerBatting()
+{
+	return players;
+}

@@ -12,6 +12,5 @@ public:
 	~Trainee();
 
 	std::string getName() { return _name; }
-	std::string attack() { return getName() + " attacks with bare hands!"; } //change to player catch phrase
 };
 

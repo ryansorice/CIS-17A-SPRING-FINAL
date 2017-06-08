@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <ctime>
+#include <cstdlib>
 
 //User Libraries
 #include "Trainee.h"
@@ -20,9 +22,13 @@ using namespace std;
 //Function Prototypes
 void AddBatters(const shared_ptr<Team>);
 void AddFielders(const shared_ptr<Team>);
+void PlayBall(const shared_ptr<Team>);
 
 int main() 
 {
+	//random number seed
+	srand(static_cast<unsigned int>(time(0)));
+
 	//Intro + Create team name
 	cout << "Welcome to /a/ Baseball-like game! \n" << "First, what will be your team's name? ";
 	string tName;
@@ -61,10 +67,10 @@ int main()
 
 	//Run the game
 	int gameOver = 0;
-	while (gameOver != 1)
+	while (gameOver != 1 && gameOver != 2)
 	{
 		cout << "1) View Team\n2) Play Game\n3) Match History\n4) Quit Game\n";
-		int n = -1;
+		int n = -1, level=1;
 		cin >> n;
 		switch (n)
 		{
@@ -75,12 +81,21 @@ int main()
 			cout << "Team Motto: " << team->getMotto() << endl << endl;
 			cout << "Your team has " << b << " Batter(s) and " << f1 << " Fielder(s).\n";
 			cout<< "Roster: " << team->ViewPlayers() << endl;
+			system("pause"); system("cls");
 			break;
 		}
 		case 2:
-		case 3:
+		{
+			PlayBall(team);
+			break;
+		}
+		case 3: 
+		{
+			break;
+		}
 		case 4:
 		{
+			//Game over with a Quit; No victory
 			system("cls");
 			cout << "Goodbye!\n";
 			system("pause");
@@ -88,9 +103,71 @@ int main()
 		}
 		default: "Invalid entry!\n"; break;
 		}
+		//Game over with a Victory
+		if (level==6) gameOver = 2;
+		
+	}
+	//Victory screen
+	if (gameOver == 2) cout << "Congratulations! Your team" << team->getName() << " are the champions!\n";
+	
+	return 0;
+}
+
+void PlayBall(const shared_ptr<Team> team)
+{
+	system("cls");
+	//Coin toss
+	int coin = 0,
+		toss = rand() % 2 + 1;;
+	cout << "Coin Toss! (1 for heads, 2 for tails)\n";
+	cin >> coin;
+
+	if (toss == 1)
+	{
+		cout << "Heads!\n";
+		if (coin == 1) cout << "Your team bats first.\n";
+		else cout << "Your team takes the field first.\n";
+		system("pause");
+	}
+	else if (toss == 2)
+	{
+		cout << "Tails!\n";
+		if (coin == 2) cout << "Your team bats first.\n";
+		else cout << "Your team takes the field first.\n";
+		system("pause");
 	}
 
-	return 0;
+	//Game Menu
+	int x = 0;
+	while (x != 1 && x != 2)
+	{
+		system("cls");
+		cout << "1) Bat/Field\n2) The Count\n3) Score\n4) Surrender\n";
+		int n = 0;
+		cin >> n;
+		switch (n)
+		{
+		case 1:
+		{
+			break;
+		}
+		case 2:
+		{
+			break;
+		}
+		case 3:
+		{
+			break;
+		}
+		case 4:
+		{
+			cout << "Game Over!\n";
+			x = 1;
+			system("pause");
+		}
+		default: break;
+		}
+	}
 }
 
 //Add Batters to team function
