@@ -20,5 +20,7 @@ public:
 	std::string getMotto() { return "Go HARD or go HOME!"; }
 
 	void AddPlayer(std::shared_ptr<Trainee> _players);
+	std::string ViewPlayers();
+
 };
 

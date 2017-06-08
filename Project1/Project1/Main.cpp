@@ -31,6 +31,7 @@ int main()
 	system("cls");
 
 	cout << "Your team has a total of 6 players; (the ideal being 3 batters and 3 fielders).\n" << "How many are batters? (The rest will be fielders) ";
+	system("pause");
 	
 	//ADD BATTERS TO TEAM
 	int b;
@@ -51,15 +52,48 @@ int main()
 	//ADD FIELDERS TO TEAM
 	b = b - 1;
 	int f = 6 - b;
+	int f1 = f;
 	while ( f != 0 )
 	{
 		AddFielders(team);
 		f--;
 	}
 
+	//Run the game
+	int gameOver = 0;
+	while (gameOver != 1)
+	{
+		cout << "1) View Team\n2) Play Game\n3) Match History\n4) Quit Game\n";
+		int n = -1;
+		cin >> n;
+		switch (n)
+		{
+		case 1:
+		{
+			system("cls");
+			cout << "Team Name: " << team->getName() << endl << endl;
+			cout << "Team Motto: " << team->getMotto() << endl << endl;
+			cout << "Your team has " << b << " Batter(s) and " << f1 << " Fielder(s).\n";
+			cout<< "Roster: " << team->ViewPlayers() << endl;
+			break;
+		}
+		case 2:
+		case 3:
+		case 4:
+		{
+			system("cls");
+			cout << "Goodbye!\n";
+			system("pause");
+			gameOver = 1; break;
+		}
+		default: "Invalid entry!\n"; break;
+		}
+	}
+
 	return 0;
 }
 
+//Add Batters to team function
 void AddBatters(const shared_ptr<Team> team)
 {
 	cout << "Batter's name? ";
@@ -70,6 +104,7 @@ void AddBatters(const shared_ptr<Team> team)
 	system("cls");
 }
 
+//Add Fielders to team function
 void AddFielders(const shared_ptr<Team> team)
 {
 	cout << "Fielder's name? ";
