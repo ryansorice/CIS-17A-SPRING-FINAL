@@ -43,7 +43,6 @@ int main()
 	int b;
 	cin >> b;
 	system("cls");
-	b = b + 1;
 	switch (b)
 	{
 		case 6: AddBatters(team);
@@ -51,12 +50,12 @@ int main()
 		case 4: AddBatters(team);
 		case 3: AddBatters(team);
 		case 2: AddBatters(team);
-		case 1: AddBatters(team); break;
+		case 1: AddBatters(team); 
+		case 0: AddBatters(team); break;
 		default: cout << "Invalid entry!\n";  break;
 	}
 
 	//ADD FIELDERS TO TEAM
-	b = b - 1;
 	int f = 6 - b;
 	int f1 = f;
 	while ( f != 0 )
@@ -161,83 +160,97 @@ void Batting(const shared_ptr<Team> team, int &score, int &score1)
 		cout << "Outs: " << to_string(out) << endl;
 		system("pause");
 	}
-	
+	cout << "Fielding team up to bat!\n";
+	system("pause");
 }
 
 //Individual game + submenu
 void PlayBall(const shared_ptr<Team> team, int &level)
 {
-	system("cls");
-	//Coin toss
-	int coin = 0,
-		toss = rand() % 2 + 1;
-	cout << "Coin Toss! (1 for heads, 2 for tails)\n";
-	cin >> coin;
-
-	bool goFirst = true;
-	if (toss == 1)
-	{
-		cout << "Heads!\n";
-		if (coin == 1) cout << "Your team bats first.\n";
-		else 
-		{
-			cout << "Your team takes the field first.\n";
-			goFirst = false;
-		}
-		system("pause");
-	}
-	else if (toss == 2)
-	{
-		cout << "Tails!\n";
-		if (coin == 2) cout << "Your team bats first.\n";
-		else 
-		{
-			cout << "Your team takes the field first.\n";
-			goFirst = false;
-		}
-		system("pause");
-	}
-
-	//Game Menu
 	int score = 0, score1 = 0;
-	int x = 0;
-	while (x != 1 && x != 2)
+	while (score<10&&score1<10)
 	{
 		system("cls");
-		cout << "1) Bat/Field\n2) The Score\n3) Surrender\n";
-		int n = 0;
-		cin >> n;
-		switch (n)
+		//Coin toss
+		int coin = 0,
+			toss = rand() % 2 + 1;
+		cout << "Coin Toss! (1 for heads, 2 for tails)\n";
+		cin >> coin;
+
+		bool goFirst = true;
+		if (toss == 1)
 		{
-		case 1:
-		{
-			if (goFirst == true)
+			cout << "Heads!\n";
+			if (coin == 1) cout << "Your team bats first.\n";
+			else
 			{
-				Batting(team, score, score1);
+				cout << "Your team takes the field first.\n";
 				goFirst = false;
 			}
-			else 
-			{
-				Batting(team, score1, score);
-				goFirst = true;
-			}
-			break;
-		}
-		case 2:
-		{
-			cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
-			system("pause"); system("cls");
-			break;
-		}
-		case 3:
-		{
-			cout << "Game Over!\n";
-			x = 1;
 			system("pause");
 		}
-		default: break;
+		else if (toss == 2)
+		{
+			cout << "Tails!\n";
+			if (coin == 2) cout << "Your team bats first.\n";
+			else
+			{
+				cout << "Your team takes the field first.\n";
+				goFirst = false;
+			}
+			system("pause");
 		}
-		if (x == 2) level++;
+
+		//Game Menu
+		int x = 0;
+		while (x != 1 && x != 2)
+		{
+			system("cls");
+			cout << "1) Bat/Field\n2) The Score\n3) Surrender\n";
+			int n = 0;
+			cin >> n;
+			switch (n)
+			{
+			case 1:
+			{
+				if (goFirst == true)
+				{
+					Batting(team, score, score1);
+					goFirst = false;
+				}
+				else
+				{
+					Batting(team, score1, score);
+					goFirst = true;
+				}
+				break;
+			}
+			case 2:
+			{
+				cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
+				system("pause"); system("cls");
+				break;
+			}
+			case 3:
+			{
+				cout << "Game Over!\n";
+				x = 1;
+				score = 10;
+				system("pause"); break;
+			}
+			default: break;
+			}
+			if (score > 9 || score1 > 9)
+			{
+				x = 2;
+				if (score > 9)
+				{
+					cout << "YOU WIN! LvL UP!!!\n";
+					level++;
+				}
+				else cout << "YOU LOST! Try AGAIN!\n";
+			}
+		}
 	}
 }
 
