@@ -24,7 +24,6 @@ void AddBatters(const shared_ptr<Team>);
 void AddFielders(const shared_ptr<Team>);
 void PlayBall(const shared_ptr<Team>, int &);
 void Batting(const shared_ptr<Team>, int &, int &);
-void Fielding(const shared_ptr<Team>, int &, int &);
 
 int main() 
 {
@@ -114,6 +113,7 @@ int main()
 	return 0;
 }
 
+//How to score and win the individual game
 void Batting(const shared_ptr<Team> team, int &score, int &score1)
 {
 	int out = 0;
@@ -157,17 +157,14 @@ void Batting(const shared_ptr<Team> team, int &score, int &score1)
 			cout << "4 and SCORE!!!\n";
 		}
 
-		cout << "Score: " << to_string(score) << " : " << to_string(score1) << endl;
+		cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
 		cout << "Outs: " << to_string(out) << endl;
 		system("pause");
 	}
 	
 }
-void Fielding(const shared_ptr<Team> team, int &score, int &score1)
-{
 
-}
-
+//Individual game + submenu
 void PlayBall(const shared_ptr<Team> team, int &level)
 {
 	system("cls");
@@ -214,7 +211,6 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 		{
 		case 1:
 		{
-			
 			if (goFirst == true)
 			{
 				Batting(team, score, score1);
@@ -222,14 +218,14 @@ void PlayBall(const shared_ptr<Team> team, int &level)
 			}
 			else 
 			{
-				Fielding(team, score, score1);
+				Batting(team, score1, score);
 				goFirst = true;
 			}
 			break;
 		}
 		case 2:
 		{
-			cout << "Score: " << to_string(score) << " : " << to_string(score1) << endl;
+			cout << "Score: " << to_string(score) << " - " << to_string(score1) << endl;
 			system("pause"); system("cls");
 			break;
 		}
