@@ -22,7 +22,9 @@ using namespace std;
 //Function Prototypes
 void AddBatters(const shared_ptr<Team>);
 void AddFielders(const shared_ptr<Team>);
-void PlayBall(const shared_ptr<Team>);
+void PlayBall(const shared_ptr<Team>, int &);
+void Batting(const shared_ptr<Team>, int &);
+void Fielding(const shared_ptr<Team>, int &);
 
 int main() 
 {
@@ -37,7 +39,6 @@ int main()
 	system("cls");
 
 	cout << "Your team has a total of 6 players; (the ideal being 3 batters and 3 fielders).\n" << "How many are batters? (The rest will be fielders) ";
-	system("pause");
 	
 	//ADD BATTERS TO TEAM
 	int b;
@@ -51,8 +52,8 @@ int main()
 		case 4: AddBatters(team);
 		case 3: AddBatters(team);
 		case 2: AddBatters(team);
-		case 1: AddBatters(team);
-		default: break;
+		case 1: AddBatters(team); break;
+		default: cout << "Invalid entry!\n";  break;
 	}
 
 	//ADD FIELDERS TO TEAM
@@ -86,7 +87,7 @@ int main()
 		}
 		case 2:
 		{
-			PlayBall(team);
+			PlayBall(team,level);
 			break;
 		}
 		case 3: 
@@ -113,27 +114,85 @@ int main()
 	return 0;
 }
 
-void PlayBall(const shared_ptr<Team> team)
+void Batting(const shared_ptr<Team> team, int &score)
+{
+	int out = 0;
+	while (out != 3) 
+	{
+		int strike = 0, ball = 0;
+		//The at bat
+		while (strike < 3 && ball < 4)
+		{
+			int hit = rand() % 7 + 1;
+			if (hit > 5)
+			{
+				cout << "Hit and SCORE!!!\n";
+				score++;
+				system("pause");
+				break;
+			}
+			else if (hit > 2 && hit < 6) 
+			{
+				ball++;
+				cout << "BALL!!!\n";
+				system("pause");
+			}
+			else 
+			{
+				strike++;
+				cout << "STEE-RIKE!!!!\n";
+				system("pause");
+			}
+		}
+
+		if (strike == 3)
+		{
+			out++;
+			cout << "YOUR OUT!!!\n";
+		}
+		else if (ball == 4) 
+		{
+			score++;
+			cout << "4 and SCORE!!!\n";
+		}
+	}
+	
+}
+void Fielding(const shared_ptr<Team> team, int &score1)
+{
+
+}
+
+void PlayBall(const shared_ptr<Team> team, int &level)
 {
 	system("cls");
 	//Coin toss
 	int coin = 0,
-		toss = rand() % 2 + 1;;
+		toss = rand() % 2 + 1;
 	cout << "Coin Toss! (1 for heads, 2 for tails)\n";
 	cin >> coin;
 
+	bool goFirst = true;
 	if (toss == 1)
 	{
 		cout << "Heads!\n";
 		if (coin == 1) cout << "Your team bats first.\n";
-		else cout << "Your team takes the field first.\n";
+		else 
+		{
+			cout << "Your team takes the field first.\n";
+			goFirst = false;
+		}
 		system("pause");
 	}
 	else if (toss == 2)
 	{
 		cout << "Tails!\n";
 		if (coin == 2) cout << "Your team bats first.\n";
-		else cout << "Your team takes the field first.\n";
+		else 
+		{
+			cout << "Your team takes the field first.\n";
+			goFirst = false;
+		}
 		system("pause");
 	}
 
@@ -149,6 +208,17 @@ void PlayBall(const shared_ptr<Team> team)
 		{
 		case 1:
 		{
+			int score = 0, score1 = 0;
+			if (goFirst == true)
+			{
+				Batting(team, score);
+				goFirst = false;
+			}
+			else 
+			{
+				Fielding(team, score1);
+				goFirst = true;
+			}
 			break;
 		}
 		case 2:
@@ -167,6 +237,7 @@ void PlayBall(const shared_ptr<Team> team)
 		}
 		default: break;
 		}
+		if (x == 2) level++;
 	}
 }
 

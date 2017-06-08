@@ -4,10 +4,11 @@
 
 class Batter : public Trainee
 {
-public:
-	int power = 20;
-	int movement = 5;
+private:
+	int _power = 20;
+	int _movement = 5;
 
+public:
 	Batter(std::string name);
 	~Batter();
 

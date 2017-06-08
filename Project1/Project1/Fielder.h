@@ -4,9 +4,11 @@
 
 class Fielder : public Trainee
 {
+private:
+
+	int _power = 5;
+	int _movement = 20;
 public:
-	int power = 5;
-	int movement = 20;
 
 	Fielder(std::string name);
 	~Fielder();
